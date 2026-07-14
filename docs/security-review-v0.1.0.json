@@ -1,10 +1,10 @@
 {
   "schema_version": "1.0",
   "metadata": {
-    "review_id": "review-software-security-v0.1.0-replacement-prepublication",
-    "generated_at": "2026-07-14T03:00:00Z",
+    "review_id": "review-software-security-v0.1.0-hosted-assurance",
+    "generated_at": "2026-07-14T02:54:22Z",
     "repository": "https://github.com/AI-Jerry/review-software-security",
-    "revision": "clean-replacement-candidate",
+    "revision": "55bfa8bd6d667fcac0036d7743cdc229f384118e",
     "scope": "Public source tree, installable skill, deterministic scripts, synthetic tests, CI workflow, and v0.1.0 release artifacts",
     "mode": "standard",
     "asvs_level": "not-applicable"
@@ -79,7 +79,7 @@
       "applicability": "applicable",
       "outcome": "pass",
       "method": "Public-bundle and repository scan",
-      "evidence": ["The bundle test inspected 64 files for private paths, unpublished project identities, common secret formats, symlinks, and files over 1 MiB; no release-blocking match was found."]
+      "evidence": ["The bundle test inspected 66 files for private paths, unpublished project identities, common secret formats, symlinks, and files over 1 MiB; no release-blocking match was found."]
     },
     {
       "control_reference": "PROJECT-EXTERNAL-SECRET-SCAN-v0.1.0",
@@ -91,14 +91,24 @@
     {
       "control_reference": "GITHUB-PLATFORM-CONTROLS-accessed-2026-07-13",
       "applicability": "applicable",
-      "outcome": "not-tested",
-      "method": "Replacement pre-publication state review",
-      "evidence": ["The clean replacement repository has not yet been created, so hosted validation, CodeQL, secret protection, dependency controls, private reporting, and protected-main rules require fresh observation."]
+      "outcome": "pass",
+      "method": "Hosted workflow and repository-settings observation",
+      "evidence": [
+        "Validate run 29302004890 completed successfully on commit 55bfa8bd6d667fcac0036d7743cdc229f384118e; CodeQL setup run 29302092949 completed successfully for Python and GitHub Actions.",
+        "Private vulnerability reporting, dependency graph, Dependabot alerts/security/grouped updates, malware alerts, CodeQL, secret scanning, and push protection were enabled and observed on the recreated public repository."
+      ]
+    },
+    {
+      "control_reference": "GITHUB-PROTECTED-MAIN-RULESET-18904743",
+      "applicability": "applicable",
+      "outcome": "pass",
+      "method": "Repository ruleset observation",
+      "evidence": ["Active ruleset 18904743 targets the default branch and requires pull requests, linear history, current branches, resolved conversations, deterministic-validation, and CodeQL results at High-or-higher security and Errors standard thresholds; deletion and force-push are blocked; repository administrators retain an always-allow emergency bypass."]
     }
   ],
   "release": {
-    "decision": "conditional",
+    "decision": "ready",
     "blocking_findings": [],
-    "rationale": "No confirmed Critical or High findings were identified in the clean replacement source. Publication remains conditional until hosted validation and repository security controls are re-established and observed; unavailable checks remain explicitly not tested."
+    "rationale": "No confirmed Critical or High findings were identified. Deterministic validation, fresh hosted validation, CodeQL, repository security controls, and protected-main gates passed. The unavailable external secret scanner remains explicitly not tested and the published release state will be verified after publication."
   }
 }
