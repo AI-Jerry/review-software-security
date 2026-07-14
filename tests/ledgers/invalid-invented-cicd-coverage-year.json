@@ -1,0 +1,9 @@
+{
+  "schema_version": "1.0",
+  "metadata": {"review_id": "invalid-5", "generated_at": "2026-07-13T12:00:00Z", "repository": "fixture", "revision": "1", "scope": "test", "mode": "standard"},
+  "standards": [],
+  "profiles": ["core", "cicd"],
+  "findings": [],
+  "coverage": [{"control_reference": "OWASP-CICD-SEC-4-2023", "applicability": "applicable", "outcome": "not-tested", "method": "static", "evidence": ["fixture"]}],
+  "release": {"decision": "ready", "blocking_findings": [], "rationale": "Reference must be rejected."}
+}

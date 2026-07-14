@@ -1,0 +1,18 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it using this metadata."
+title: "review-software-security"
+type: software
+authors:
+  - family-names: "Lartey"
+    given-names: "Jerry"
+version: 0.1.0
+date-released: 2026-07-13
+url: "https://github.com/AI-Jerry/review-software-security"
+repository-code: "https://github.com/AI-Jerry/review-software-security"
+license: Apache-2.0
+keywords:
+  - application security
+  - OWASP
+  - AI security
+  - release readiness
+  - Codex skill

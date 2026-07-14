@@ -1,0 +1,6 @@
+service: synthetic-fixture
+provider:
+  name: aws
+functions:
+  handler:
+    handler: handler.main

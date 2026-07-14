@@ -1,0 +1,10 @@
+openapi: 3.1.0
+info:
+  title: Synthetic account API
+  version: 0.0.0
+paths:
+  /accounts/{accountId}:
+    get:
+      responses:
+        "200":
+          description: Synthetic response

@@ -1,0 +1,10 @@
+{
+  "ai-agent": ["agentic", "ai-llm", "core", "supply-chain"],
+  "cicd": ["cicd", "core"],
+  "dependency-risk": ["core", "supply-chain"],
+  "kubernetes": ["core", "kubernetes"],
+  "mobile": ["core", "mobile", "supply-chain"],
+  "neutral": ["core"],
+  "serverless": ["core", "serverless"],
+  "web-api": ["api", "core", "supply-chain", "web"]
+}

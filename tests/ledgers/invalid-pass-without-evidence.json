@@ -1,0 +1,9 @@
+{
+  "schema_version": "1.0",
+  "metadata": {"review_id": "invalid-2", "generated_at": "2026-07-13T12:00:00Z", "repository": "fixture", "revision": "1", "scope": "test", "mode": "standard"},
+  "standards": [],
+  "profiles": ["core"],
+  "findings": [],
+  "coverage": [{"control_reference": "OWASP-ASVS-v5.0.0-1.1.1", "applicability": "applicable", "outcome": "pass", "method": "Unavailable scanner", "evidence": []}],
+  "release": {"decision": "ready", "blocking_findings": [], "rationale": "Incorrect fixture."}
+}

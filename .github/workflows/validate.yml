@@ -1,0 +1,32 @@
+name: Validate
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: validate-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  deterministic-validation:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      # actions/checkout v4.2.2, pinned to the full commit SHA.
+      - name: Check out repository
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+
+      - name: Validate public bundle
+        run: python3 tests/test_public_bundle.py
+
+      - name: Run routing and ledger fixtures
+        run: python3 tests/run_fixture_tests.py --skill skill/review-software-security
+
+      - name: Build deterministic release artifacts
+        run: python3 scripts/build_release.py --version 0.1.0

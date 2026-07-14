@@ -1,0 +1,55 @@
+{
+  "schema_version": "1.0",
+  "metadata": {
+    "review_id": "fixture-valid-blocked",
+    "generated_at": "2026-07-13T12:00:00Z",
+    "repository": "synthetic/web-api",
+    "revision": "fixture-1",
+    "scope": "Express API authorization",
+    "mode": "standard",
+    "asvs_level": 1
+  },
+  "standards": [
+    {
+      "id": "OWASP-ASVS",
+      "version": "5.0.0",
+      "status": "stable",
+      "source": "https://owasp.org/www-project-application-security-verification-standard/",
+      "checked_at": "2026-07-13",
+      "freshness": "current"
+    }
+  ],
+  "profiles": ["core", "web", "api"],
+  "findings": [
+    {
+      "id": "SEC-001",
+      "title": "Object lookup lacks an ownership authorization check",
+      "severity": "high",
+      "confidence": "high",
+      "status": "confirmed",
+      "location": "src/api.js:2",
+      "evidence": ["The authenticated route queries the caller-controlled accountId and returns the object without an ownership or tenant predicate."],
+      "attack_path": "An authenticated user substitutes another account identifier in the route.",
+      "impact": "Cross-account data disclosure.",
+      "standard_references": [],
+      "cwe": ["CWE-639"],
+      "remediation": "Authorize the requested object against the authenticated subject and tenant at the data-access boundary.",
+      "verification": "Use two synthetic accounts and assert cross-account identifiers are denied.",
+      "release_blocking": true
+    }
+  ],
+  "coverage": [
+    {
+      "control_reference": "OWASP-ASVS-v5.0.0-8.2.2",
+      "applicability": "applicable",
+      "outcome": "fail",
+      "method": "Source trace",
+      "evidence": ["src/api.js:2"]
+    }
+  ],
+  "release": {
+    "decision": "not-ready",
+    "blocking_findings": ["SEC-001"],
+    "rationale": "A confirmed High authorization finding blocks release."
+  }
+}

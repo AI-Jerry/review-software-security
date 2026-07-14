@@ -1,0 +1,4 @@
+[project]
+name = "security-fixture-ai-agent"
+version = "0.0.0"
+dependencies = ["openai==9.0.0", "langgraph==1.0.0"]

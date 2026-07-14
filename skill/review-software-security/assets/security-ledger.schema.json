@@ -1,0 +1,97 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:review-software-security:security-ledger:1.0",
+  "title": "Software Security Review Ledger",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "metadata", "standards", "profiles", "findings", "coverage", "release"],
+  "properties": {
+    "schema_version": {"const": "1.0"},
+    "metadata": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["review_id", "generated_at", "repository", "revision", "scope", "mode"],
+      "properties": {
+        "review_id": {"type": "string", "minLength": 1},
+        "generated_at": {"type": "string", "format": "date-time"},
+        "repository": {"type": "string", "minLength": 1},
+        "revision": {"type": "string", "minLength": 1},
+        "scope": {"type": "string", "minLength": 1},
+        "mode": {"enum": ["diff", "standard", "deep"]},
+        "asvs_level": {"enum": [1, 2, 3, "not-applicable"]}
+      }
+    },
+    "standards": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "version", "status", "source", "checked_at", "freshness"],
+        "properties": {
+          "id": {"type": "string", "minLength": 1},
+          "version": {"type": "string", "minLength": 1},
+          "status": {"enum": ["stable", "advisory", "draft", "evolving"]},
+          "source": {"type": "string", "format": "uri"},
+          "checked_at": {"type": "string", "format": "date"},
+          "freshness": {"enum": ["current", "stale", "offline-unverified"]}
+        }
+      }
+    },
+    "profiles": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "string", "minLength": 1}},
+    "findings": {
+      "type": "array",
+      "items": {"$ref": "#/$defs/finding"}
+    },
+    "coverage": {
+      "type": "array",
+      "minItems": 1,
+      "items": {"$ref": "#/$defs/coverage"}
+    },
+    "release": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["decision", "blocking_findings", "rationale"],
+      "properties": {
+        "decision": {"enum": ["ready", "conditional", "not-ready"]},
+        "blocking_findings": {"type": "array", "uniqueItems": true, "items": {"type": "string", "minLength": 1}},
+        "rationale": {"type": "string", "minLength": 1}
+      }
+    }
+  },
+  "$defs": {
+    "finding": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "title", "severity", "confidence", "status", "location", "evidence", "attack_path", "impact", "standard_references", "cwe", "remediation", "verification", "release_blocking"],
+      "properties": {
+        "id": {"type": "string", "pattern": "^SEC-[0-9]{3,}$"},
+        "title": {"type": "string", "minLength": 1},
+        "severity": {"enum": ["critical", "high", "medium", "low", "info"]},
+        "confidence": {"enum": ["high", "medium", "low"]},
+        "status": {"enum": ["confirmed", "likely", "unverified"]},
+        "location": {"type": "string", "minLength": 1},
+        "evidence": {"type": "array", "minItems": 1, "items": {"type": "string", "minLength": 1}},
+        "attack_path": {"type": "string", "minLength": 1},
+        "impact": {"type": "string", "minLength": 1},
+        "standard_references": {"type": "array", "minItems": 1, "items": {"type": "string", "minLength": 1}},
+        "cwe": {"type": "array", "items": {"type": "string", "pattern": "^CWE-[0-9]+$"}},
+        "remediation": {"type": "string", "minLength": 1},
+        "verification": {"type": "string", "minLength": 1},
+        "release_blocking": {"type": "boolean"}
+      }
+    },
+    "coverage": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["control_reference", "applicability", "outcome", "method", "evidence"],
+      "properties": {
+        "control_reference": {"type": "string", "minLength": 1},
+        "applicability": {"enum": ["applicable", "not-applicable", "unknown"]},
+        "outcome": {"enum": ["pass", "fail", "not-tested"]},
+        "method": {"type": "string", "minLength": 1},
+        "evidence": {"type": "array", "minItems": 1, "items": {"type": "string", "minLength": 1}}
+      }
+    }
+  }
+}

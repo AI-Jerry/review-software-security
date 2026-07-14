@@ -1,0 +1,12 @@
+name: synthetic-insecure-release
+on: pull_request_target
+jobs:
+  release:
+    permissions:
+      contents: write
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+      - run: ./scripts/from-pull-request.sh

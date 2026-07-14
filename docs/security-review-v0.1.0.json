@@ -1,0 +1,104 @@
+{
+  "schema_version": "1.0",
+  "metadata": {
+    "review_id": "review-software-security-v0.1.0-replacement-prepublication",
+    "generated_at": "2026-07-14T03:00:00Z",
+    "repository": "https://github.com/AI-Jerry/review-software-security",
+    "revision": "clean-replacement-candidate",
+    "scope": "Public source tree, installable skill, deterministic scripts, synthetic tests, CI workflow, and v0.1.0 release artifacts",
+    "mode": "standard",
+    "asvs_level": "not-applicable"
+  },
+  "standards": [
+    {
+      "id": "OWASP-Top-10-Agentic-Applications",
+      "version": "2026",
+      "status": "stable",
+      "source": "https://genai.owasp.org/resource/owasp-top-10-for-agentic-applications-for-2026/",
+      "checked_at": "2026-07-13",
+      "freshness": "current"
+    },
+    {
+      "id": "OWASP-Top-10-CI-CD-Security-Risks",
+      "version": "accessed-2026-07-13",
+      "status": "evolving",
+      "source": "https://owasp.org/www-project-top-10-ci-cd-security-risks/",
+      "checked_at": "2026-07-13",
+      "freshness": "current"
+    },
+    {
+      "id": "CycloneDX",
+      "version": "1.6",
+      "status": "stable",
+      "source": "https://cyclonedx.org/specification/overview/",
+      "checked_at": "2026-07-13",
+      "freshness": "current"
+    },
+    {
+      "id": "GitHub-Actions-Secure-Use",
+      "version": "accessed-2026-07-13",
+      "status": "evolving",
+      "source": "https://docs.github.com/en/actions/reference/security/secure-use",
+      "checked_at": "2026-07-13",
+      "freshness": "current"
+    }
+  ],
+  "profiles": ["core", "agentic", "cicd", "supply-chain"],
+  "findings": [],
+  "coverage": [
+    {
+      "control_reference": "OWASP-Agentic-Applications-2026-ASI03",
+      "applicability": "applicable",
+      "outcome": "pass",
+      "method": "Instruction and source trace",
+      "evidence": ["SKILL.md prohibits unauthorized tool installation, external probing, production-data access, exploit-oriented testing, and automatic remediation."]
+    },
+    {
+      "control_reference": "OWASP-Agentic-Applications-2026-ASI08",
+      "applicability": "applicable",
+      "outcome": "pass",
+      "method": "Source trace and synthetic execution",
+      "evidence": ["detect_security_profiles.py reads bounded file metadata/text and reports execution_performed=false; it contains no target-code execution or network client."]
+    },
+    {
+      "control_reference": "OWASP-CICD-SEC-5-accessed-2026-07-13",
+      "applicability": "applicable",
+      "outcome": "pass",
+      "method": "Workflow inspection",
+      "evidence": [".github/workflows/validate.yml sets permissions.contents=read, uses no secrets, pull_request_target, or self-hosted runner, and pins checkout to a full commit SHA."]
+    },
+    {
+      "control_reference": "CycloneDX-v1.6",
+      "applicability": "applicable",
+      "outcome": "pass",
+      "method": "Repeat deterministic build and artifact inspection",
+      "evidence": ["Two v0.1.0 builds were byte-for-byte identical and emitted a ZIP, SHA256SUMS, and CycloneDX 1.6 JSON SBOM with file hashes."]
+    },
+    {
+      "control_reference": "PROJECT-PRIVACY-v0.1.0",
+      "applicability": "applicable",
+      "outcome": "pass",
+      "method": "Public-bundle and repository scan",
+      "evidence": ["The bundle test inspected 64 files for private paths, unpublished project identities, common secret formats, symlinks, and files over 1 MiB; no release-blocking match was found."]
+    },
+    {
+      "control_reference": "PROJECT-EXTERNAL-SECRET-SCAN-v0.1.0",
+      "applicability": "applicable",
+      "outcome": "not-tested",
+      "method": "Tool availability check",
+      "evidence": ["gitleaks, trufflehog, and detect-secrets were unavailable; no tool was installed without authorization. Internal regex checks ran, but they are not reported as equivalent coverage."]
+    },
+    {
+      "control_reference": "GITHUB-PLATFORM-CONTROLS-accessed-2026-07-13",
+      "applicability": "applicable",
+      "outcome": "not-tested",
+      "method": "Replacement pre-publication state review",
+      "evidence": ["The clean replacement repository has not yet been created, so hosted validation, CodeQL, secret protection, dependency controls, private reporting, and protected-main rules require fresh observation."]
+    }
+  ],
+  "release": {
+    "decision": "conditional",
+    "blocking_findings": [],
+    "rationale": "No confirmed Critical or High findings were identified in the clean replacement source. Publication remains conditional until hosted validation and repository security controls are re-established and observed; unavailable checks remain explicitly not tested."
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "schema_version": "1.0",
+  "metadata": {"review_id": "invalid-1", "generated_at": "2026-07-13T12:00:00Z", "repository": "fixture", "revision": "1", "scope": "test", "mode": "standard"},
+  "standards": [],
+  "profiles": ["core"],
+  "findings": [{"id": "SEC-001", "title": "Confirmed high", "severity": "high", "confidence": "high", "status": "confirmed", "location": "a:1", "evidence": ["proof"], "attack_path": "path", "impact": "impact", "standard_references": ["OWASP-ASVS-v5.0.0-1.1.1"], "cwe": [], "remediation": "fix", "verification": "test", "release_blocking": false}],
+  "coverage": [],
+  "release": {"decision": "ready", "blocking_findings": [], "rationale": "Incorrect fixture."}
+}
