@@ -4,6 +4,10 @@ All notable changes to this project will be documented here. The format is based
 
 ## [Unreleased]
 
+### Security
+
+- Recorded a checksum-verified Gitleaks v8.30.1 full-history and working-tree scan with zero potential secrets, plus post-publication immutable-release verification.
+
 ## [0.1.0] - 2026-07-13
 
 ### Added
