@@ -1,10 +1,10 @@
 {
   "schema_version": "1.0",
   "metadata": {
-    "review_id": "review-software-security-v0.1.0-hosted-assurance",
-    "generated_at": "2026-07-14T02:54:22Z",
+    "review_id": "review-software-security-v0.1.0-post-release-assurance",
+    "generated_at": "2026-07-14T04:06:35Z",
     "repository": "https://github.com/AI-Jerry/review-software-security",
-    "revision": "55bfa8bd6d667fcac0036d7743cdc229f384118e",
+    "revision": "1cc87c6fd8c9ae1bb351c0a50ebe58c6a33be619",
     "scope": "Public source tree, installable skill, deterministic scripts, synthetic tests, CI workflow, and v0.1.0 release artifacts",
     "mode": "standard",
     "asvs_level": "not-applicable"
@@ -84,9 +84,12 @@
     {
       "control_reference": "PROJECT-EXTERNAL-SECRET-SCAN-v0.1.0",
       "applicability": "applicable",
-      "outcome": "not-tested",
-      "method": "Tool availability check",
-      "evidence": ["gitleaks, trufflehog, and detect-secrets were unavailable; no tool was installed without authorization. Internal regex checks ran, but they are not reported as equivalent coverage."]
+      "outcome": "pass",
+      "method": "Checksum-verified Gitleaks v8.30.1 full-history and working-tree scans with 100% result redaction",
+      "evidence": [
+        "The Gitleaks v8.30.1 macOS ARM64 archive and publisher checksum file matched the SHA-256 digests published with the official release.",
+        "Gitleaks scanned all four commits reachable from the clean repository and the current working tree at revision 1cc87c6fd8c9ae1bb351c0a50ebe58c6a33be619; both scans completed successfully and reported zero potential secrets. Pattern-based scanning does not prove absence of all secrets."
+      ]
     },
     {
       "control_reference": "GITHUB-PLATFORM-CONTROLS-accessed-2026-07-13",
@@ -104,11 +107,21 @@
       "outcome": "pass",
       "method": "Repository ruleset observation",
       "evidence": ["Active ruleset 18904743 targets the default branch and requires pull requests, linear history, current branches, resolved conversations, deterministic-validation, and CodeQL results at High-or-higher security and Errors standard thresholds; deletion and force-push are blocked; repository administrators retain an always-allow emergency bypass."]
+    },
+    {
+      "control_reference": "GITHUB-IMMUTABLE-RELEASE-v0.1.0",
+      "applicability": "applicable",
+      "outcome": "pass",
+      "method": "Published release page and GitHub API observation",
+      "evidence": [
+        "Release v0.1.0 is published as latest and immutable, points to verified commit 1cc87c6fd8c9ae1bb351c0a50ebe58c6a33be619, and contains the four intended project-supplied assets.",
+        "GitHub-reported SHA-256 digests for the ZIP, SHA256SUMS, CycloneDX SBOM, and JSON security ledger matched the locally generated files."
+      ]
     }
   ],
   "release": {
     "decision": "ready",
     "blocking_findings": [],
-    "rationale": "No confirmed Critical or High findings were identified. Deterministic validation, fresh hosted validation, CodeQL, repository security controls, and protected-main gates passed. The unavailable external secret scanner remains explicitly not tested and the published release state will be verified after publication."
+    "rationale": "No confirmed Critical or High findings were identified. Deterministic validation, hosted validation, CodeQL, repository security controls, protected-main gates, checksum-verified external secret scanning, and immutable release verification passed. Pattern-based secret scanning does not prove absence of every possible secret."
   }
 }

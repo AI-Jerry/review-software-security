@@ -2,7 +2,7 @@
 
 ## Decision
 
-**Ready — no confirmed Critical or High findings.** The clean replacement source, deterministic release artifacts, fresh GitHub-hosted validation, CodeQL scan, and repository security controls satisfy the v0.1.0 release-candidate gates. The unavailable external secret scanner remains explicitly `not-tested` and is documented as residual coverage, not a pass.
+**Ready — no confirmed Critical or High findings.** The clean replacement source, deterministic release artifacts, GitHub-hosted validation, CodeQL scan, repository security controls, checksum-verified external secret scan, and immutable release verification satisfy the v0.1.0 release gates.
 
 The matched machine-readable record is [`security-review-v0.1.0.json`](security-review-v0.1.0.json).
 
@@ -33,12 +33,7 @@ Primary abuse cases included malicious repository text attempting to induce tool
 
 No confirmed, likely, or unverified vulnerability finding met the project’s finding threshold in the reviewed local tree.
 
-This is not a clean bill of health. The following residual coverage remains open:
-
-- an external secret scanner was unavailable and was not installed without authorization;
-- immutable-release status can be verified only after the v0.1.0 release is published.
-
-These items are not represented as passes. They do not create a confirmed Critical or High finding under the documented release policy.
+This is not a clean bill of health. Gitleaks is a pattern-based detector, so a zero-finding result does not prove that a secret never existed or detect every possible sensitive value. No applicable control in this assurance update remains `not-tested`.
 
 ## Evidence summary
 
@@ -49,6 +44,7 @@ These items are not represented as passes. They do not create a confirmed Critic
 - Release reproducibility: two builds compared byte-for-byte with `cmp` and matched.
 - ZIP inspection: 13 intended skill files under one `review-software-security/` directory; fixed timestamps; no symlinks.
 - Secret/privacy regex scan: no match outside deliberately encoded test patterns; no file over 1 MiB; no symlink.
+- External secret scan: `PASS` with checksum-verified Gitleaks v8.30.1 against all four commits reachable from the clean repository and the current working tree at `1cc87c6fd8c9ae1bb351c0a50ebe58c6a33be619`; both scans reported zero potential secrets with 100% result redaction.
 - CI inspection: `contents: read`, full-SHA checkout pin, no `pull_request_target`, no self-hosted runner, no secret use.
 - Hosted validation: `PASS` on commit `55bfa8bd6d667fcac0036d7743cdc229f384118e` in run `29302004890`.
 - CodeQL default setup: `PASS` for Python and GitHub Actions in run `29302092949`.
@@ -58,8 +54,8 @@ These items are not represented as passes. They do not create a confirmed Critic
 
 ## Publication status
 
-The clean repository and hosted controls are ready for the final assurance pull request and v0.1.0 release packaging. The published release and immutable-release state must still be verified after publication.
+Release [`v0.1.0`](https://github.com/AI-Jerry/review-software-security/releases/tag/v0.1.0) is published, marked latest and immutable, and points to verified commit `1cc87c6fd8c9ae1bb351c0a50ebe58c6a33be619`. Its four project-supplied assets are uploaded, and their GitHub-reported SHA-256 digests match the locally generated files.
 
 ## Limitations
 
-This review evaluated the repository-controlled release process and deterministic scripts. It did not perform exploit testing, assess an application deployed from the synthetic fixtures, inspect GitHub infrastructure, or establish certification. Absence of a finding is not proof of absence.
+This review evaluated the repository-controlled release process and deterministic scripts. It did not perform exploit testing, assess an application deployed from the synthetic fixtures, inspect GitHub infrastructure, or establish certification. Gitleaks and the repository-specific regex checks are pattern-based and cannot guarantee detection of every secret. Absence of a finding is not proof of absence.
